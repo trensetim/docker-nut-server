@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  upsd:
+    container_name: nut-server
+    build: .
+    ports:
+      - 3493:3493
+    volumes:
+      - ./ups.conf:/etc/nut/ups.conf:ro
+      - ./upsmon.conf:/etc/nut/upsmon.conf:ro
+      - ./upsd.conf:/etc/nut/upsd.conf:ro
+      - ./upsd.users:/etc/nut/upsd.users:ro
+      - ./nut.conf:/etc/nut/nut.conf:ro
+    devices:
+      - /dev/bus/usb/001/007:/dev/bus/usb/001/007
+
