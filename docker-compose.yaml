@@ -4,6 +4,7 @@ services:
   upsd:
     container_name: nut-server
     build: .
+    restart: on-failure
     ports:
       - 3493:3493
     volumes:
@@ -12,6 +13,8 @@ services:
       - ./upsd.conf:/etc/nut/upsd.conf:ro
       - ./upsd.users:/etc/nut/upsd.users:ro
       - ./nut.conf:/etc/nut/nut.conf:ro
+      - ./shutdowncmd.sh:/bin/shutdowncmd.sh:ro
+      - /etc/shutdownflag:/etc/shutdownflag
     devices:
-      - /dev/bus/usb/001/007:/dev/bus/usb/001/007
-
+      # mount all devices on bus 001
+      - /dev/bus/usb/001:/dev/bus/usb/001
